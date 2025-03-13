@@ -79,3 +79,31 @@ export async function expirePaymentMethod(c: Context) {
         console.error('Error expiring payment method:', error);
     }
 }
+
+export async function authPaymentMethod(c: Context) {
+    try {
+        const id = (c.req.param("id"));
+        const paymentMethodData = await c.req.json();
+        const paymentMethod = await xenditPaymentMethodClient.authPaymentMethod({
+            paymentMethodId: id,
+            data : paymentMethodData
+        });
+        return c.json(paymentMethod, 200);
+    } catch (error) {
+        console.error('Error expiring payment method:', error);
+    }
+}
+
+export async function simulatePayment(c: Context) {
+    try {
+        const id = (c.req.param("id"));
+        const paymentMethodData = await c.req.json();
+        await xenditPaymentMethodClient.simulatePayment({
+            paymentMethodId: id,
+            data : paymentMethodData
+        });
+        return c.json({message: "simulate payment success"},200);
+    } catch (error) {
+        console.error('Error expiring payment method:', error);
+    }
+}

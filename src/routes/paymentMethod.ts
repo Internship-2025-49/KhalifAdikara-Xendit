@@ -15,4 +15,8 @@ app.get('/', (c) => paymentMethod.getAllPaymentMethods(c))
 
 app.post('/:id/expire', (c) => paymentMethod.expirePaymentMethod(c))
 
+app.post('/:id/auth', (c) => paymentMethod.authPaymentMethod(c))
+
+app.post('/:id/simulate', (c) => paymentMethod.simulatePayment(c))
+
 export default app;
