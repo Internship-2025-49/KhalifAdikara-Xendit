@@ -14,6 +14,7 @@ export async function getBalance(c: Context) {
         return c.json(balance, 200);
     } catch (error) {
         console.error('Error getting balance:', error);
+        return c.json({error}, 400)
     }
 }
 

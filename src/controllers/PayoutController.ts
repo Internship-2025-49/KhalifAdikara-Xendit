@@ -17,6 +17,7 @@ export async function createPayout(c: Context) {
     return c.json(payout, 201);
     } catch (error) {
         console.error('Error creating payout:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -29,6 +30,7 @@ export async function getPayoutById(c: Context) {
         return c.json(payout, 200);
     } catch (error) {
         console.error('Error getting payout by id:', error);
+        return c.json({error}, 400)
     }   
 }
 
@@ -38,6 +40,7 @@ export async function getPayoutChannels(c: Context) {
         return c.json(payout, 200);
     } catch (error) {
         console.error('Error getting payout channels:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -50,6 +53,7 @@ export async function getPayouts(c: Context) {
         return c.json(payouts, 200);
     } catch (error) {
         console.error('Error getting payouts:', error);
+        return c.json({error}, 400)
     }   
 }
 
@@ -62,6 +66,7 @@ export async function cancelPayout(c: Context) {
         return c.json(payout, 200);
     } catch (error) {
         console.error('Error canceling payout:', error);
+        return c.json({error}, 400)
     }
     
 }

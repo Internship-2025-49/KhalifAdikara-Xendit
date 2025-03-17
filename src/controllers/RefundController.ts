@@ -19,6 +19,7 @@ export async function createRefund(c: Context) {
     return c.json(refund, 201);
     } catch (error) {
         console.error('Error creating refund:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -31,6 +32,7 @@ export async function getRefund(c: Context) {
         return c.json(refund, 200);
     } catch (error) {
         console.error('Error getting refund by id:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -40,6 +42,7 @@ export async function getAllRefunds(c: Context) {
         return c.json(refunds, 200);
     } catch (error) {
         console.error('Error getting all refunds:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -52,5 +55,6 @@ export async function cancelRefund(c: Context) {
         return c.json(refund, 200);
     } catch (error) {
         console.error('Error canceling refund:', error);
+        return c.json({error}, 400)
     }
 }

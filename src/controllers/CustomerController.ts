@@ -15,13 +15,13 @@ export async function getCustomer(c: Context) {
         return c.json(customer, 200);
     } catch (error) {
         console.error('Error getting customer:', error);
+        return c.json({error})
     }
 }
 
 export async function createCustomer(c: Context) {
     try {
         const customerData = await c.req.json();
-        console.log('Customer Data:', customerData);
 
         const customer = await xenditCustomerClient.createCustomer({
             data: customerData
@@ -30,7 +30,7 @@ export async function createCustomer(c: Context) {
         return c.json(customer, 201);
     } catch (error) {
         console.error('Error creating customer:', error);
-        return c.json({ error: 'Failed to create customer' }, 400);
+        return c.json({error})
     }
 }
 
@@ -43,6 +43,7 @@ export async function getCustomerByReferenceID(c: Context) {
         return c.json(customer, 200);
     } catch (error) {
         console.error('Error getting customer by reference ID:', error);
+        return c.json({error})
     }
 }
 
@@ -57,5 +58,6 @@ export async function updateCustomer(c: Context) {
         return c.json(customer, 200);
     } catch (error) {
         console.error('Error updating customer:', error);
+        return c.json({error}, 400)
     }
 }

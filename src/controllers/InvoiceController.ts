@@ -19,6 +19,7 @@ export async function createInvoice(c: Context) {
     return c.json(invoice, 201);
     } catch (error) {
         console.error('Error creating invoice:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -28,6 +29,7 @@ export async function getInvoices(c: Context) {
         return c.json(invoice, 200);
     } catch (error) {
         console.error('Error getting invoices:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -38,6 +40,7 @@ export async function getInvoiceById(c: Context) {
         return c.json(invoice, 200);
     } catch (error) {
         console.error('Error getting invoice by id:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -48,6 +51,7 @@ export async function expireInvoice(c: Context) {
         return c.json(invoice, 200);
     } catch (error) {
         console.error('Error expiring invoice:', error);
+        return c.json({error}, 400)
     }
 }
 

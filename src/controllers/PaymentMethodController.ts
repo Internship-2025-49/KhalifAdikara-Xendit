@@ -17,6 +17,7 @@ export async function createPaymentMethod(c: Context) {
         return c.json(paymentMethod, 201);
     } catch (error) {
         console.error('Error creating payment method:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -29,6 +30,7 @@ export async function getPaymentMethodByID(c: Context) {
         return c.json(paymentMethod, 200);
     } catch (error) {
         console.error('Error getting payment method by id:', error);
+        return c.json({error}, 400)
     }
     
 }
@@ -42,6 +44,7 @@ export async function getPaymentsByPaymentMethodId(c: Context) {
         return c.json(payments, 200);
     } catch (error) {
         console.error('Error getting payments by payment method id:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -56,6 +59,7 @@ export async function patchPaymentMethod(c: Context) {
         return c.json(paymentMethod, 200);
     } catch (error) {
         console.error('Error patching payment method:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -65,6 +69,7 @@ export async function getAllPaymentMethods(c: Context) {
         return c.json(paymentMethods, 200);
     } catch (error) {
         console.error('Error getting all payment methods:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -77,6 +82,7 @@ export async function expirePaymentMethod(c: Context) {
         return c.json(paymentMethod, 200);
     } catch (error) {
         console.error('Error expiring payment method:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -91,6 +97,7 @@ export async function authPaymentMethod(c: Context) {
         return c.json(paymentMethod, 200);
     } catch (error) {
         console.error('Error expiring payment method:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -105,5 +112,6 @@ export async function simulatePayment(c: Context) {
         return c.json({message: "simulate payment success"},200);
     } catch (error) {
         console.error('Error expiring payment method:', error);
+        return c.json({error}, 400)
     }
 }

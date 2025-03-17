@@ -19,6 +19,7 @@ export async function createPaymentRequest(c: Context) {
     return c.json(paymentRequest, 201);
     } catch (error) {
         console.error('Error creating payment request:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -31,6 +32,7 @@ export async function getPaymentRequestByID(c: Context){
         return c.json(paymentRequest, 200);
     } catch (error) {
         console.error('Error getting payment request by id:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -43,6 +45,7 @@ export async function getPaymentRequestCaptures(c: Context) {
         return c.json(paymentRequest, 200);
     } catch (error) {
         console.error('Error getting payment request captures:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -52,30 +55,37 @@ export async function getAllPaymentRequest(c: Context) {
         return c.json(paymentRequest, 200);
     } catch (error) {
         console.error('Error getting payment requests:', error);
+        return c.json({error}, 400)
     }
 }
 
 export async function capturePaymentRequest(c: Context) {
     try {
         const id = (c.req.param("id"));
+        const paymentRequestData = await c.req.json();
         const paymentRequest = await xenditPaymentRequestClient.capturePaymentRequest({
-            paymentRequestId: id
+            paymentRequestId: id,
+            data : paymentRequestData
         });
         return c.json(paymentRequest, 200);
     } catch (error) {
         console.error('Error capturing payment request:', error);
+        return c.json({error}, 400)
     }       
 }
 
 export async function authorizePaymentRequest(c: Context) {
     try {
         const id = (c.req.param("id"));
+        const paymentRequestData = await c.req.json();
         const paymentRequest = await xenditPaymentRequestClient.authorizePaymentRequest({
-            paymentRequestId: id
+            paymentRequestId: id,
+            data : paymentRequestData
         });
         return c.json(paymentRequest, 200);
     } catch (error) {
         console.error('Error authorizing payment request:', error);
+        return c.json({error}, 400)
     }
 }
 
@@ -88,17 +98,19 @@ export async function resendPaymentRequestAuth(c: Context) {
         return c.json(paymentRequest, 200);
     } catch (error) {
         console.error('Error resending payment request auth:', error);
+        return c.json({error}, 400)
     }
 }
 
 export async function simulatePaymentRequestPayment(c: Context) {
     try {
-        const id = (c.req.param("id"));
+        const id = c.req.param("id");
         const paymentRequest = await xenditPaymentRequestClient.simulatePaymentRequestPayment({
             paymentRequestId: id
         });
         return c.json(paymentRequest, 200);
     } catch (error) {
         console.error('Error simulating payment request payment:', error);
+        return c.json({error}, 400)
     }
 }

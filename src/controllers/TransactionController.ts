@@ -14,6 +14,7 @@ export async function getAllTransactions(c: Context) {
         return c.json(transaction.data, 200);
     } catch (error) {
         console.error('Error getting transaction:', error);
+        return c.json({error}, 400)
     }
     
 }
@@ -25,6 +26,7 @@ export async function getTransactionByID(c: Context){
         return c.json(transaction, 200);
     } catch (error) {
         console.error('Error getting transaction by id:', error);
+        return c.json({error}, 400)
     }
     
 }
