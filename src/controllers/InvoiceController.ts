@@ -117,7 +117,6 @@ export async function successInvoice(c: Context) {
             .where(eq(invoices.externalId, id) && eq(invoices.status, 'PENDING'))
     
         if (pendingInvoice.length > 0) {
-            const invoiceToUpdate = await db.select().from(invoices).where(eq(invoices.externalId, id));
             await db.update(invoices).set({ status }).where(eq(invoices.externalId, id));
             return c.json({ message: 'Payment successful' }, 200);
         } else {
