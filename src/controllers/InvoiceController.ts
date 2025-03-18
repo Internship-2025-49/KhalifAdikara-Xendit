@@ -82,7 +82,7 @@ export async function getInvoiceById(c: Context) {
     try {
         const id = (c.req.param("id"));
         const invoice = await db.select().from(invoices).where(eq(invoices.invoiceId, id));
-        if (!invoice) {
+        if (!invoice || invoice.length === 0) {
             return c.json({ error: 'Invoice not found' }, 404);
         }
         return c.json(invoice, 200);
@@ -140,8 +140,6 @@ export async function failureInvoice(c: Context) {
         if (pendingInvoice.length > 0) {
             await db.update(invoices).set({ status }).where(eq(invoices.externalId, id));
             return c.json({ message: 'Payment failed' }, 400);
-        } else {
-            return c.json({ error: 'Invoice not found or not pending' }, 404);
         }
     } catch (error) {
         console.error('Error handling invoice failure:', error);
