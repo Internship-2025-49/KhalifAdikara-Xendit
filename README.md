@@ -6,7 +6,7 @@ open http://localhost:3000
 ```
 
 
-```
+
 # Invoice API
 
 ## Endpoints
@@ -89,4 +89,3 @@ open http://localhost:3000
 * **400**: Bad Request
 * **404**: Not Found
 * **500**: Internal Server Error
-```
