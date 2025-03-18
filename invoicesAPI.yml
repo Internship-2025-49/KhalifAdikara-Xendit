@@ -259,7 +259,7 @@ paths:
                     type: string
                     description: Error message
 
-  /invoices{id}:
+  /invoices/{id}:
     get:
       summary: Get an invoice by ID
       description: Retrieves an invoice based on the provided ID
@@ -379,7 +379,7 @@ paths:
                     type: string
                     description: Error message
 
-  /invoices{id}/expire:
+  /invoices/{id}/expire:
     post:
       summary: Expire an invoice
       description: Expire an invoice by ID
@@ -425,7 +425,7 @@ paths:
                     type: string
                     description: Error message
 
-  /invoices{id}/success:
+  /invoices/{id}/success:
     get:
       summary: Handle payment success
       description: Update invoice status to SETTLED after payment success
@@ -468,7 +468,7 @@ paths:
                     type: string
                     description: Error message
 
-  /invoices{id}/failure:
+  /invoices/{id}/failure:
     get:
       summary: Handle payment failure
       description: Update invoice status to EXPIRED after payment failure
