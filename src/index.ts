@@ -8,8 +8,11 @@ import customer from './routes/customer.js';
 import refund from './routes/refund.js';
 import payout from './routes/payout.js';
 import paymentMethod from './routes/paymentMethod.js';
+import { cors } from 'hono/cors';
 
 const app = new Hono();
+
+app.use('*', cors());
 
 app.get('/', (c) => {
     return c.text('Hello Hono!');
