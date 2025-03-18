@@ -24,7 +24,7 @@ open http://localhost:3000
 	+ `items`: array (required)
 	+ `fees`: object (required)
 * **Response**:
-	+ `id`: string
+	+ `invoiceId`: string
 	+ `externalId`: string
 	+ `userId`: string
 	+ `amount`: number
@@ -39,7 +39,7 @@ open http://localhost:3000
 * **Path**: `/invoices`
 * **Response**:
 	+ `invoices`: array
-		- `id`: string
+		- `invoiceId`: string
 		- `externalId`: string
 		- `userId`: string
 		- `amount`: number
@@ -53,7 +53,7 @@ open http://localhost:3000
 * **Method**: GET
 * **Path**: `/invoices/{id}`
 * **Response**:
-	+ `id`: string
+	+ `invoiceId`: string
 	+ `externalId`: string
 	+ `userId`: string
 	+ `amount`: number
