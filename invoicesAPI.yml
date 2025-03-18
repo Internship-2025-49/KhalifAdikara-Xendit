@@ -1,0 +1,502 @@
+openapi: 3.0.0
+info:
+  title: Invoice API
+  description: API for managing invoices
+  version: 1.0.0
+
+servers:
+    - url: http://localhost:3000/
+
+paths:
+
+  /invoices:  
+    post:
+      summary: Create a new invoice
+      description: Create a new invoice with the provided data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                externalId:
+                  type: string
+                  description: External ID of the invoice
+                userId:
+                  type: string
+                  description: ID of the user who created the invoice
+                amount:
+                  type: number
+                  description: Amount of the invoice
+                currency:
+                  type: string
+                  description: Currency of the invoice
+                customer:
+                  type: object
+                  description: Customer information
+                items:
+                  type: array
+                  items:
+                    type: object
+                    description: Invoice item information
+                fees:
+                  type: object
+                  description: Fee information
+      responses:
+        201:
+          description: Invoice created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ID of the invoice
+                  externalId:
+                    type: string
+                    description: External ID of the invoice
+                  userId:
+                    type: string
+                    description: ID of the user who created the invoice
+                  status:
+                    type: string
+                    description: Status of the invoice
+                  merchantName:
+                    type: string
+                    description: Name of the merchant
+                  merchantProfilePictureUrl:
+                    type: string
+                    description: URL of the merchant's profile picture
+                  amount:
+                    type: number
+                    description: Amount of the invoice
+                  expiryDate:
+                    type: string
+                    description: Expiry date of the invoice
+                  invoiceUrl:
+                    type: string
+                    description: URL of the invoice
+                  created:
+                    type: string
+                    description: Date the invoice was created
+                  updated:
+                    type: string
+                    description: Date the invoice was last updated
+                  currency:
+                    type: string
+                    description: Currency of the invoice
+                  customer:
+                    type: object
+                    description: Customer information
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      description: Invoice item information
+                  fees:
+                    type: object
+                    description: Fee information
+                  availableBanks:
+                    type: array
+                    items:
+                      type: string
+                      description: List of available banks
+                  availableRetailOutlets:
+                    type: array
+                    items:
+                      type: string
+                      description: List of available retail outlets
+                  availableEwallets:
+                    type: array
+                    items:
+                      type: string
+                      description: List of available e-wallets
+                  availableQrCodes:
+                    type: array
+                    items:
+                      type: string
+                      description: List of available QR codes
+                  availableDirectDebits:
+                    type: array
+                    items:
+                      type: string
+                      description: List of available direct debits
+                  availablePaylaters:
+                    type: array
+                    items:
+                      type: string
+                      description: List of available paylaters
+                  successRedirectUrl:
+                    type: string
+                    description: URL untuk redirect setelah pembayaran berhasil
+                  failureRedirectUrl:
+                    type: string
+                    description: URL untuk redirect setelah pembayaran gagal
+        400:
+          description: Failed to create invoice
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+        409:
+          description: Invoice already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+    
+    get:
+      summary: Get a list of invoices
+      description: Get a list of invoices
+      responses:
+        200:
+          description: List of invoices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: ID of the invoice in the database
+                    invoiceId:
+                      type: string
+                      description: ID of the invoice
+                    externalId:
+                      type: string
+                      description: External ID of the invoice
+                    userId:
+                      type: string
+                      description: ID of the user who created the invoice
+                    status:
+                      type: string
+                      description: Status of the invoice
+                    merchantName:
+                      type: string
+                      description: Name of the merchant
+                    merchantProfilePictureUrl:
+                      type: string
+                      description: URL of the merchant's profile picture
+                    amount:
+                      type: number
+                      description: Amount of the invoice
+                    expiryDate:
+                      type: string
+                      description: Expiry date of the invoice
+                    invoiceUrl:
+                      type: string
+                      description: URL of the invoice
+                    created:
+                      type: string
+                      description: Date the invoice was created
+                    updated:
+                      type: string
+                      description: Date the invoice was last updated
+                    currency:
+                      type: string
+                      description: Currency of the invoice
+                    customer:
+                      type: object
+                      description: Customer information
+                    items:
+                      type: array
+                      items:
+                        type: object
+                        description: Invoice item information
+                    fees:
+                      type: object
+                      description: Fee information
+                    availableBanks:
+                      type: array
+                      items:
+                        type: string
+                        description: List of available banks
+                    availableRetailOutlets:
+                      type: array
+                      items:
+                        type: string
+                        description: List of available retail outlets
+                    availableEwallets:
+                      type: array
+                      items:
+                        type: string
+                        description: List of available e-wallets
+                    availableQrCodes:
+                      type: array
+                      items:
+                        type: string
+                        description: List of available QR codes
+                    availableDirectDebits:
+                      type: array
+                      items:
+                        type: string
+                        description: List of available direct debits
+                    availablePaylaters:
+                      type: array
+                      items:
+                        type: string
+                        description: List of available paylaters
+        400:
+          description: Failed to get invoices
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+
+  /invoices{id}:
+    get:
+      summary: Get an invoice by ID
+      description: Retrieves an invoice based on the provided ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Invoice ID
+      responses:
+        200:
+          description: Invoice found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Invoice ID in the database
+                  invoiceId:
+                    type: string
+                    description: Invoice ID
+                  externalId:
+                    type: string
+                    description: External invoice ID
+                  userId:
+                    type: string
+                    description: User ID who created the invoice
+                  status:
+                    type: string
+                    description: Invoice status
+                  merchantName:
+                    type: string
+                    description: Merchant name
+                  merchantProfilePictureUrl:
+                    type: string
+                    description: Merchant profile picture URL
+                  amount:
+                    type: number
+                    description: Invoice amount
+                  expiryDate:
+                    type: string
+                    description: Invoice expiry date
+                  invoiceUrl:
+                    type: string
+                    description: Invoice URL
+                  created:
+                    type: string
+                    description: Invoice creation date
+                  updated:
+                    type: string
+                    description: Invoice update date
+                  currency:
+                    type: string
+                    description: Invoice currency
+                  customer:
+                    type: object
+                    description: Customer information
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      description: Invoice item information
+                  fees:
+                    type: object
+                    description: Invoice fee information
+                  availableBanks:
+                    type: array
+                    items:
+                      type: string
+                      description: List of available banks
+                  availableRetailOutlets:
+                    type: array
+                    items:
+                      type: string
+                      description: List of available retail outlets
+                  availableEwallets:
+                    type: array
+                    items:
+                      type: string
+                      description: List of available e-wallets
+                  availableQrCodes:
+                    type: array
+                    items:
+                      type: string
+                      description: List of available QR codes
+                  availableDirectDebits:
+                    type: array
+                    items:
+                      type: string
+                      description: List of available direct debits
+                  availablePaylaters:
+                    type: array
+                    items:
+                      type: string
+                      description: List of available paylater options
+        404:
+          description: Invoice not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+        400:
+          description: Failed to retrieve invoice
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+
+  /invoices{id}/expire:
+    post:
+      summary: Expire an invoice
+      description: Expire an invoice by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID of the invoice to expire
+      responses:
+        200:
+          description: Invoice expired successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  invoiceId:
+                    type: string
+                    description: ID of the invoice
+                  status:
+                    type: string
+                    description: Status of the invoice (EXPIRED)
+        400:
+          description: Failed to expire invoice
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+        404:
+          description: Invoice not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+
+  /invoices{id}/success:
+    get:
+      summary: Handle payment success
+      description: Update invoice status to SETTLED after payment success
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: External ID of the invoice
+      responses:
+        200:
+          description: Payment successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success message
+        404:
+          description: Invoice not found or not pending
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+        400:
+          description: Error updating invoice status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
+
+  /invoices{id}/failure:
+    get:
+      summary: Handle payment failure
+      description: Update invoice status to EXPIRED after payment failure
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: External ID of the invoice
+      responses:
+        400:
+          description: Payment failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message
+        404:
+          description: Invoice not found or not pending
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
