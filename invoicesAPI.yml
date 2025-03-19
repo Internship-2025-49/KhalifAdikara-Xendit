@@ -26,12 +26,20 @@ paths:
                 userId:
                   type: string
                   description: ID of the user who created the invoice
+                invoiceDuration:
+                  type: string
+                  description: Duration of the invoice
                 amount:
                   type: number
                   description: Amount of the invoice
                 currency:
                   type: string
                   description: Currency of the invoice
+                paymentMethods:
+                  type: array
+                  items:
+                    type: string
+                    description: Payment methods of the invoice
                 customer:
                   type: object
                   description: Customer information

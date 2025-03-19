@@ -18,8 +18,10 @@ open http://localhost:3000
 * **Request Body**:
 	+ `externalId`: string (required)
 	+ `userId`: string (required)
+	+ `invoiceDuration`: string
 	+ `amount`: number (required)
 	+ `currency`: string (required)
+	+ `paymentMethods`: array (string)
 	+ `customer`: object (required)
 	+ `items`: array (required)
 	+ `fees`: object (required)
