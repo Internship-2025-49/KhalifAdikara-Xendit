@@ -111,13 +111,17 @@ export async function expireInvoice(c: Context) {
 export async function successInvoice(c: Context) {
     try {
         const id = (c.req.param("id"));
-        const status = 'SETTLED';
+        const invoice = await db.select().from(invoices).where(eq(invoices.externalId, id)&& eq(invoices.status, 'PENDING'));
+        const invoiceId = invoice[0].invoiceId;
     
-        const pendingInvoice = await db.select().from(invoices)
-            .where(eq(invoices.externalId, id) && eq(invoices.status, 'PENDING'))
+        const xenditInvoice = await xenditInvoiceClient.getInvoiceById({ invoiceId: invoiceId });
+        const status = xenditInvoice.status;
     
-        if (pendingInvoice.length > 0) {
-            await db.update(invoices).set({ status }).where(eq(invoices.externalId, id));
+        if (status === 'PAID') {
+            await db.update(invoices).set({ status: 'PAID' }).where(eq(invoices.externalId, id) && eq(invoices.status, 'PENDING'));
+            return c.json({ message: 'Payment successful' }, 200);
+        } if (status === 'SETTLED') {
+            await db.update(invoices).set({ status: 'SETTLED' }).where(eq(invoices.externalId, id) && eq(invoices.status, 'PENDING'));
             return c.json({ message: 'Payment successful' }, 200);
         } else {
             return c.json({ error: 'Invoice not found or not pending' }, 404);
